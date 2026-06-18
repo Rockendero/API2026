@@ -3,6 +3,7 @@ import express, { response } from 'express'
 import cors from 'cors';
 import clientesRoutes from './routes/clientes.routes.js'
 import usuariosRoutes from './routes/usuarios.routes.js'
+import productosRoutes from './routes/productos.routes.js'
 const app=express();
 
 const corsOptions={
@@ -13,10 +14,12 @@ const corsOptions={
 
 app.use(cors(corsOptions)); //habilitar los cors
 app.use(express.json());//para que interprete los objetos json
+app.use('/uploads', express.static('src/img'));
 
 //rutas
 app.use('/api',clientesRoutes)
 app.use('/api', usuariosRoutes)
+app.use('/api', productosRoutes)
 
 //app.use('/api',ProductosRoutes) ejemplo de rutas proximas
 app.use((req,res,next)=>{
