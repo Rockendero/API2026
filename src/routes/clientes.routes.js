@@ -6,13 +6,11 @@ import jwt from 'jsonwebtoken';
 import { verificarJWT } from '../middlewares/verificarJWT.js';
 import { verificarToken } from '../middlewares/verificarToken.js';
 import {deleteClientes, getClientes,getClientesxid, patchClientes, postInsertarClientes, putClientes} from '../controladores/clientesCtrl.js'
-const router=Router()
 
+const router=Router()
 const SECRET = 'clave123';
 
-
 router.post('/login', async (req, res) => {
-
     try {
         const { usuario, clave } = req.body;
         const [result] = await conmysql.query(
@@ -39,16 +37,13 @@ router.post('/login', async (req, res) => {
             SECRET,
             { expiresIn: '1h' }
         );
-        res.json({ token });
+        res.json({ token, nombre: usuarioBD.usr_nombre });
     } catch (error) {
         res.status(500).json({
             mensaje: 'Error login'
         });
-
     }
-
 });
-
 
 //armar nuestras rutas
 router.use(verificarJWT);
