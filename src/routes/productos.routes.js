@@ -1,18 +1,23 @@
 import express from 'express';
 import multer from 'multer';
-import path from 'path';
+import { v2 as cloudinary } from 'cloudinary';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
 import { verificarJWT } from '../middlewares/verificarJWT.js';
 import { getProductos, getProductosxid, postInsertarProductos, putProductos, deleteProductos } from '../controladores/productosCtrl.js';
 
 const router = express.Router();
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'src/img/productos/');
-  },
-  filename: (req, file, cb) => {
-    const nombre = Date.now() + path.extname(file.originalname);
-    cb(null, nombre);
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'productos',
+    allowed_formats: ['jpg', 'jpeg', 'png', 'webp']
   }
 });
 
