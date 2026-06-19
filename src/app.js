@@ -4,8 +4,8 @@ import cors from 'cors';
 import clientesRoutes from './routes/clientes.routes.js'
 import usuariosRoutes from './routes/usuarios.routes.js'
 import productosRoutes from './routes/productos.routes.js'
-const app=express();
 
+const app=express();
 const corsOptions={
     origin:'*',
     methods:['GET','POST','PUT','PATCH','DELETE'],
@@ -14,7 +14,8 @@ const corsOptions={
 
 app.use(cors(corsOptions)); //habilitar los cors
 app.use(express.json());//para que interprete los objetos json
-app.use('/uploads', express.static('src/img'));
+//app.use('/uploads', express.static('src/img'));
+app.use('/uploads/productos', express.static('src/img/productos'));
 
 //rutas
 app.use('/api',clientesRoutes)
