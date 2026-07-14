@@ -4,6 +4,7 @@ import cors from 'cors';
 import clientesRoutes from './routes/clientes.routes.js'
 import usuariosRoutes from './routes/usuarios.routes.js'
 import productosRoutes from './routes/productos.routes.js'
+import pedidosRoutes from './routes/pedidos.routes.js';
 
 const app=express();
 const corsOptions={
@@ -21,6 +22,7 @@ app.use('/uploads/productos', express.static('src/img/productos'));
 app.use('/api',clientesRoutes)
 app.use('/api', usuariosRoutes)
 app.use('/api', productosRoutes)
+app.use('/api', pedidosRoutes);
 
 //app.use('/api',ProductosRoutes) ejemplo de rutas proximas
 app.use((req,res,next)=>{
